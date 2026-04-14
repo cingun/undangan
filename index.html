@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Undangan Digital</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #f5f5f5;
+      padding: 50px;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h3>Kepada Yth:</h3>
+    <h2 id="namaTamu">Tamu Undangan</h2>
+
+    <p>Anda diundang ke acara</p>
+    <h1>Wedding Anik & Anang</h1>
+
+    <p>3 Oktober 2026</p>
+    <p>Lokasi: Blora</p>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const nama = urlParams.get('to');
+
+    if (nama) {
+      document.getElementById("namaTamu").innerText = nama;
+    }
+  </script>
+</body>
+</html>
