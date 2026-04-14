@@ -38,6 +38,7 @@ body {
   background: #bbb;
   clip-path: polygon(0 0, 100% 0, 50% 50%);
   transition: 0.5s;
+  z-index: 1;
 }
 
 .envelope.open .flap {
@@ -45,6 +46,8 @@ body {
 }
 
 .letter {
+  position: relative;
+  z-index: 2;
   padding-top: 20px;
 }
 
