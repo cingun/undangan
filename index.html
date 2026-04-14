@@ -65,6 +65,21 @@
 
 <body>
 
+  <div id="musicControl" onclick="toggleMusic()" style="
+position: fixed;
+bottom: 20px;
+right: 20px;
+background: black;
+color: white;
+padding: 12px 15px;
+border-radius: 50%;
+cursor: pointer;
+font-size: 18px;
+box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+">
+🔊
+</div>
+
 <!-- COVER -->
 <div class="cover" id="cover">
   <h2>Undangan Pernikahan</h2>
@@ -100,6 +115,35 @@
 </audio>
 
 <script>
+  
+let isPlaying = false;
+
+function toggleMusic() {
+  const musik = document.getElementById("musik");
+  const btn = document.getElementById("musicControl");
+
+  if (isPlaying) {
+    musik.pause();
+    btn.innerHTML = "🔇";
+  } else {
+    musik.play();
+    btn.innerHTML = "🔊";
+  }
+
+  isPlaying = !isPlaying;
+}
+
+// Auto play saat buka undangan
+function bukaUndangan() {
+  document.getElementById("cover").classList.add("hidden");
+  document.getElementById("isi").classList.remove("hidden");
+
+  const musik = document.getElementById("musik");
+  musik.play().catch(() => {});
+  isPlaying = true;
+}
+</script>
+  
   // Ambil nama dari URL
   const urlParams = new URLSearchParams(window.location.search);
   const nama = urlParams.get('to');
