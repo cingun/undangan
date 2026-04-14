@@ -1,52 +1,189 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <title>Undangan Digital</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      background: #f5f5f5;
-      padding: 50px;
-    }
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Undangan Digital</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: sans-serif;
+  text-align: center;
+  background: #f5f5f5;
+}
+
+/* COVER */
+.cover {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.envelope {
+  width: 250px;
+  height: 150px;
+  background: #ddd;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.flap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #bbb;
+  clip-path: polygon(0 0, 100% 0, 50% 50%);
+  transition: 0.5s;
+}
+
+.envelope.open .flap {
+  transform: rotateX(180deg);
+}
+
+.letter {
+  padding-top: 20px;
+}
+
+/* ANIMASI */
+.fade-out {
+  animation: fadeOut 0.8s forwards;
+}
+.fade-in {
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeOut {
+  to {opacity: 0;}
+}
+@keyframes fadeIn {
+  from {opacity:0; transform: scale(0.95);}
+  to {opacity:1; transform: scale(1);}
+}
+
+/* ISI */
+.hidden {
+  display: none;
+}
+
+.container {
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 15px;
+}
+
+#countdown {
+  font-weight: bold;
+  margin-top: 10px;
+}
+</style>
 </head>
 
 <body>
+
+<!-- COVER -->
+<div id="cover" class="cover">
+  <div class="envelope" onclick="bukaUndangan()">
+    <div class="flap"></div>
+    <div class="letter">
+      <h3>Kepada Yth:</h3>
+      <h2 id="namaTamu">Tamu Undangan</h2>
+      <p>Klik untuk membuka</p>
+    </div>
+  </div>
+</div>
+
+<!-- ISI -->
+<div id="isi" class="hidden container">
+  <h1>Wedding Anik & Anang</h1>
+  <p>3 Oktober 2026</p>
+
+  <div id="countdown"></div>
+
+  <!-- MAPS -->
   <div class="card">
-    <h3>Kepada Yth:</h3>
-    <h2 id="namaTamu">Tamu Undangan</h2>
-
-    <p>Anda diundang ke acara</p>
-    <h1>Wedding Anik & Anang</h1>
-
-    <p>3 Oktober 2026</p>
-    <p>Lokasi: Blora</p>
+    <h3>Lokasi</h3>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3959.6945815871877!2d111.36501!3d-7.045132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zN8KwMDInNDIuNSJTIDExMcKwMjEnNTQuMCJF!5e0!3m2!1sid!2sid!4v1776177553433!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      
+    </iframe>
   </div>
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const nama = urlParams.get('to');
+  <!-- RSVP -->
+  <div class="card">
+    <h3>Konfirmasi Kehadiran</h3>
+    <a id="waLink" target="_blank">Klik WhatsApp</a>
+  </div>
+</div>
 
-    if (nama) {
-      document.getElementById("namaTamu").innerText = nama;
-    }
-  </script>
-<audio autoplay loop>
-  <source src="musik.mp3">
+<!-- MUSIK -->
+<audio id="musik" loop>
+  <source src="musik.mp3" type="audio/mpeg">
 </audio>
-<iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3959.6945815871877!2d111.36501!3d-7.045132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zN8KwMDInNDIuNSJTIDExMcKwMjEnNTQuMCJF!5e0!3m2!1sid!2sid!4v1776177553433!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-  width="100%" 
-  height="250" 
-  style="border:0;" 
-  loading="lazy">
-</iframe>
-  
+
+<script>
+// Nama tamu
+const nama = new URLSearchParams(window.location.search).get('to');
+if (nama) document.getElementById("namaTamu").innerText = nama;
+
+// Buka undangan
+function bukaUndangan() {
+  const cover = document.getElementById("cover");
+  const isi = document.getElementById("isi");
+
+  document.querySelector(".envelope").classList.add("open");
+  cover.classList.add("fade-out");
+
+  setTimeout(() => {
+    cover.style.display = "none";
+    isi.classList.remove("hidden");
+    isi.classList.add("fade-in");
+  }, 800);
+
+  // musik fade
+  const musik = document.getElementById("musik");
+  musik.volume = 0;
+  musik.play();
+
+  let vol = 0;
+  const fade = setInterval(() => {
+    if (vol < 1) {
+      vol += 0.05;
+      musik.volume = vol;
+    } else clearInterval(fade);
+  }, 200);
+}
+
+// Countdown detik
+const targetDate = new Date("Oct 3, 2026 00:00:00").getTime();
+
+setInterval(() => {
+  const now = new Date().getTime();
+  const d = targetDate - now;
+
+  const hari = Math.floor(d / (1000*60*60*24));
+  const jam = Math.floor((d / (1000*60*60)) % 24);
+  const menit = Math.floor((d / (1000*60)) % 60);
+  const detik = Math.floor((d / 1000) % 60);
+
+  document.getElementById("countdown").innerHTML =
+    `${hari} Hari ${jam} Jam ${menit} Menit ${detik} Detik`;
+}, 1000);
+
+// WhatsApp
+const nomor = "6285729686216";
+const pesan = `Halo, saya ${nama || "Tamu"} akan hadir 😊`;
+
+document.getElementById("waLink").href =
+  `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
+</script>
+
 </body>
 </html>
