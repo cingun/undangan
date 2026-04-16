@@ -4,188 +4,219 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Undangan Digital</title>
+<title>Undangan Premium</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  font-family: sans-serif;
-  text-align: center;
-  background: #f5f5f5;
-}
+body { margin:0; font-family:'Playfair Display'; background:#f8f5f0; overflow-x:hidden;}
+:root { --gold:#c9a96e; }
 
 /* COVER */
-.cover {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+.cover { height:100vh; display:flex; justify-content:center; align-items:center;}
+.envelope { width:300px;height:200px;background:#fff;position:relative;cursor:pointer;border-radius:10px;}
+.flap { position:absolute;width:100%;height:100%;background:var(--gold);clip-path:polygon(0 0,100% 0,50% 50%);transition:1s;}
+.envelope.open .flap { transform:rotateX(180deg); }
+.letter { display:flex;justify-content:center;align-items:center;height:100%;}
+h1 { font-family:'Great Vibes'; color:var(--gold); }
 
-.envelope {
-  width: 250px;
-  height: 150px;
-  background: #ddd;
-  border-radius: 10px;
-  cursor: pointer;
-  position: relative;
-}
+/* CONTENT */
+.hidden{display:none;}
+.content{text-align:center;padding:30px;}
 
-.flap {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #bbb;
-  clip-path: polygon(0 0, 100% 0, 50% 50%);
-  transition: 0.5s;
-  z-index: 1;
-}
+.fade-up{opacity:0;transform:translateY(40px);transition:1.2s;}
+.fade-up.show{opacity:1;transform:translateY(0);}
 
-.envelope.open .flap {
-  transform: rotateX(180deg);
-}
+/* COUNTDOWN */
+#countdown{color:var(--gold);margin:20px;}
 
-.letter {
-  position: relative;
-  z-index: 2;
-  padding-top: 20px;
-}
+/* MAP */
+.map iframe{width:100%;height:300px;border-radius:15px;border:none;}
 
-/* ANIMASI */
-.fade-out {
-  animation: fadeOut 0.8s forwards;
-}
-.fade-in {
-  animation: fadeIn 1s forwards;
-}
+/* GALERI */
+.gallery{display:flex;gap:10px;overflow:auto;}
+.gallery img{width:200px;border-radius:15px;}
 
-@keyframes fadeOut {
-  to {opacity: 0;}
-}
-@keyframes fadeIn {
-  from {opacity:0; transform: scale(0.95);}
-  to {opacity:1; transform: scale(1);}
-}
+/* WAYANG */
+.wayang-container{height:200px;position:relative;}
+.wayang{position:absolute;width:120px;opacity:0;transition:1.5s;}
+.wayang-left{left:-100px;}
+.wayang-right{right:-100px;transform:scaleX(-1);}
+.wayang.show{opacity:0.25;}
+.wayang-left.show{left:0;animation:swayLeft 5s infinite;}
+.wayang-right.show{right:0;animation:swayRight 5s infinite;}
+@keyframes swayLeft{50%{transform:rotate(3deg);}}
+@keyframes swayRight{50%{transform:scaleX(-1) rotate(-3deg);}}
 
-/* ISI */
-.hidden {
-  display: none;
-}
+/* BURUNG */
+.bird{position:fixed;width:60px;top:20%;animation:fly 12s linear infinite;}
+@keyframes fly{0%{left:-100px;}100%{left:110%;}}
 
-.container {
-  padding: 20px;
-}
+/* BUNGA */
+.flower{position:fixed;top:-50px;width:30px;animation:fall linear infinite;}
+@keyframes fall{100%{transform:translateY(110vh) rotate(360deg);}}
 
-.card {
-  background: white;
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 15px;
-}
+/* SPARKLE */
+.sparkle{position:fixed;width:5px;height:5px;background:gold;border-radius:50%;animation:sparkle 2s infinite;}
+@keyframes sparkle{50%{opacity:1;}100%{opacity:0;}}
 
-#countdown {
-  font-weight: bold;
-  margin-top: 10px;
-}
+/* RSVP */
+.rsvp button{padding:10px 20px;background:#25D366;color:#fff;border:none;border-radius:20px;}
+
+/* BUKU TAMU */
+.guestbook input,.guestbook textarea{width:90%;padding:10px;margin:5px;border-radius:10px;border:1px solid #ddd;}
+.guestbook button{background:var(--gold);color:#fff;border:none;padding:10px 20px;border-radius:20px;}
+#listUcapan div{background:#fff;padding:10px;margin:10px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.05);}
 </style>
 </head>
 
 <body>
 
-<!-- COVER -->
-<div id="cover" class="cover">
-  <div class="envelope" onclick="bukaUndangan()">
-    <div class="flap"></div>
-    <div class="letter">
-      <h3>Kepada Yth:</h3>
-      <h2 id="namaTamu">Tamu Undangan</h2>
-      <p>Klik untuk membuka</p>
-    </div>
-  </div>
-</div>
-
-<!-- ISI -->
-<div id="isi" class="hidden container">
-  <h1>Wedding Anik & Anang</h1>
-  <p>3 Oktober 2026</p>
-
-  <div id="countdown"></div>
-
-  <!-- MAPS -->
-  <div class="card">
-    <h3>Lokasi</h3>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3959.6945815871877!2d111.36501!3d-7.045132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zN8KwMDInNDIuNSJTIDExMcKwMjEnNTQuMCJF!5e0!3m2!1sid!2sid!4v1776177553433!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-      
-    </iframe>
-  </div>
-
-  <!-- RSVP -->
-  <div class="card">
-    <h3>Konfirmasi Kehadiran</h3>
-    <a id="waLink" target="_blank">Klik WhatsApp</a>
-  </div>
-</div>
-
-<!-- MUSIK -->
-<audio id="musik" loop>
-  <source src="musik.mp3" type="audio/mpeg">
+<audio id="music" loop>
+<source src="music.mp3">
 </audio>
 
+<!-- COVER -->
+<section class="cover" id="cover">
+<div class="envelope" onclick="openInvite()">
+<div class="flap"></div>
+<div class="letter"><h1>Buka Undangan</h1></div>
+</div>
+</section>
+
+<!-- CONTENT -->
+<section class="content hidden" id="content">
+
+<h3 id="namaTamu"></h3>
+<h2 class="fade-up">Nadia & Fadli</h2>
+
+<div id="countdown" class="fade-up"></div>
+
+<div class="wayang-container fade-up">
+<img src="wayang.png" class="wayang wayang-left">
+<img src="wayang.png" class="wayang wayang-right">
+</div>
+
+<div class="map fade-up">
+<iframe src="https://www.google.com/maps?q=-6.2,106.8&output=embed"></iframe>
+</div>
+
+<div class="gallery fade-up">
+<img src="foto1.jpg">
+<img src="foto2.jpg">
+<img src="foto3.jpg">
+</div>
+
+<!-- RSVP -->
+<div class="rsvp fade-up">
+<button onclick="kirimWA()">Konfirmasi WhatsApp</button>
+</div>
+
+<!-- BUKU TAMU -->
+<div class="guestbook fade-up">
+<h3>Buku Tamu</h3>
+<input id="nama" placeholder="Nama">
+<input id="jumlah" placeholder="Jumlah Tamu">
+<textarea id="ucapan" placeholder="Ucapan"></textarea>
+<button onclick="kirimUcapan()">Kirim</button>
+<div id="listUcapan"></div>
+</div>
+
+</section>
+
 <script>
-// Nama tamu
-const nama = new URLSearchParams(window.location.search).get('to');
-if (nama) document.getElementById("namaTamu").innerText = nama;
+let URL = "PASTE_URL_GSHEET_KAMU";
 
-// Buka undangan
-function bukaUndangan() {
-  const cover = document.getElementById("cover");
-  const isi = document.getElementById("isi");
-
-  document.querySelector(".envelope").classList.add("open");
-  cover.classList.add("fade-out");
-
-  setTimeout(() => {
-    cover.style.display = "none";
-    isi.classList.remove("hidden");
-    isi.classList.add("fade-in");
-  }, 800);
-
-  // musik fade
-  const musik = document.getElementById("musik");
-  musik.volume = 0;
-  musik.play();
-
-  let vol = 0;
-  const fade = setInterval(() => {
-    if (vol < 1) {
-      vol += 0.05;
-      musik.volume = vol;
-    } else clearInterval(fade);
-  }, 200);
+/* buka */
+function openInvite(){
+document.querySelector(".envelope").classList.add("open");
+setTimeout(()=>{
+document.getElementById("cover").style.display="none";
+document.getElementById("content").classList.remove("hidden");
+document.getElementById("music").play();
+},1000);
 }
 
-// Countdown detik
-const targetDate = new Date("Oct 3, 2026 00:00:00").getTime();
+/* nama tamu */
+function getNamaTamu(){
+let p=new URLSearchParams(window.location.search);
+return p.get("to")||"Tamu Undangan";
+}
+document.getElementById("namaTamu").innerHTML="Kepada "+getNamaTamu();
 
-setInterval(() => {
-  const now = new Date().getTime();
-  const d = targetDate - now;
+/* countdown */
+let target=new Date("Aug 21 2026").getTime();
+setInterval(()=>{
+let d=target-Date.now();
+let hari=Math.floor(d/(1000*60*60*24));
+document.getElementById("countdown").innerHTML=hari+" Hari Lagi";
+},1000);
 
-  const hari = Math.floor(d / (1000*60*60*24));
-  const jam = Math.floor((d / (1000*60*60)) % 24);
-  const menit = Math.floor((d / (1000*60)) % 60);
-  const detik = Math.floor((d / 1000) % 60);
+/* scroll animasi */
+window.addEventListener("scroll",()=>{
+document.querySelectorAll(".fade-up,.wayang").forEach(el=>{
+if(el.getBoundingClientRect().top<window.innerHeight-100){
+el.classList.add("show");
+}
+});
+});
 
-  document.getElementById("countdown").innerHTML =
-    `${hari} Hari ${jam} Jam ${menit} Menit ${detik} Detik`;
-}, 1000);
+/* WA */
+function kirimWA(){
+let nama=getNamaTamu();
+window.open(`https://wa.me/6281234567890?text=Halo saya ${nama}`);
+}
 
-// WhatsApp
-const nomor = "6285729686216";
-const pesan = `Halo, saya ${nama || "Tamu"} akan hadir 😊`;
+/* kirim ucapan */
+function kirimUcapan(){
+let nama=document.getElementById("nama").value;
+let jumlah=document.getElementById("jumlah").value;
+let ucapan=document.getElementById("ucapan").value;
 
-document.getElementById("waLink").href =
-  `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
+fetch(URL,{method:"POST",body:JSON.stringify({nama,jumlah,ucapan})})
+.then(()=>loadUcapan());
+}
+
+/* load ucapan */
+function loadUcapan(){
+fetch(URL)
+.then(res=>res.json())
+.then(data=>{
+let html="";
+data.slice(1).reverse().forEach(r=>{
+if(!r[1]||!r[3])return;
+html+=`<div><b>${r[1]}</b> (${r[2]||1})<p>${r[3]}</p></div>`;
+});
+document.getElementById("listUcapan").innerHTML=html;
+});
+}
+setInterval(loadUcapan,5000);
+loadUcapan();
+
+/* efek */
+setInterval(()=>{
+let f=document.createElement("img");
+f.src="flower.png";
+f.className="flower";
+f.style.left=Math.random()*window.innerWidth+"px";
+f.style.animationDuration=(5+Math.random()*5)+"s";
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),10000);
+},500);
+
+setInterval(()=>{
+let s=document.createElement("div");
+s.className="sparkle";
+s.style.left=Math.random()*window.innerWidth+"px";
+s.style.top=Math.random()*window.innerHeight+"px";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),2000);
+},200);
+
+let bird=document.createElement("img");
+bird.src="bird.png";
+bird.className="bird";
+document.body.appendChild(bird);
 </script>
 
 </body>
