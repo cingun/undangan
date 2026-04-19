@@ -9,31 +9,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat&display=swap" rel="stylesheet">
 
 <style>
-body {
+body{
   margin:0;
-  font-family:'Montserrat', sans-serif;
-  background:#f5f7fb;
+  font-family:'Montserrat',sans-serif;
+  background:#f4f6fb;
+  overflow-x:hidden;
 }
-
-/* GLOBAL */
-.section {
-  padding:60px 20px;
-  text-align:center;
-  opacity:0;
-  transform:translateY(40px);
-  transition:1s;
-}
-.section.show {
-  opacity:1;
-  transform:translateY(0);
-}
-
-.gold { color:#c9a74d; font-family:'Playfair Display'; }
 
 /* COVER */
-.cover {
+.cover{
   height:100vh;
-  background:linear-gradient(rgba(0,0,50,0.5), rgba(0,0,50,0.7)),
+  background:linear-gradient(rgba(0,0,50,0.6),rgba(0,0,50,0.7)),
   url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486');
   background-size:cover;
   display:flex;
@@ -41,24 +27,36 @@ body {
   align-items:center;
   flex-direction:column;
   color:white;
+  text-align:center;
 }
-
-button {
-  padding:12px 25px;
-  border:none;
-  border-radius:30px;
+.cover h1{font-family:'Playfair Display';font-size:40px;}
+.btn{
   background:gold;
+  padding:12px 25px;
+  border-radius:30px;
+  border:none;
   font-weight:bold;
 }
 
+/* SECTION */
+.section{
+  padding:60px 20px;
+  text-align:center;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+.section.show{opacity:1;transform:translateY(0);}
+.gold{color:#c9a74d;font-family:'Playfair Display';}
+
 /* HERO */
-.hero img {
+.hero img{
   width:150px;
   border-radius:50%;
 }
 
 /* CARD */
-.card {
+.card{
   background:white;
   margin:20px;
   padding:20px;
@@ -66,21 +64,37 @@ button {
   box-shadow:0 10px 20px rgba(0,0,0,0.1);
 }
 
-/* GALLERY */
-.gallery img {
-  width:30%;
-  border-radius:10px;
-  margin:5px;
+/* TIMELINE */
+.timeline{
+  text-align:left;
+  max-width:500px;
+  margin:auto;
+}
+.timeline div{
+  border-left:2px solid gold;
+  padding-left:15px;
+  margin:20px 0;
 }
 
-/* MUSIC BUTTON */
-.music-btn {
+/* GALLERY */
+.gallery{
+  display:flex;
+  overflow-x:auto;
+}
+.gallery img{
+  width:70%;
+  margin:10px;
+  border-radius:15px;
+}
+
+/* FLOAT MUSIC */
+.music{
   position:fixed;
   bottom:20px;
   right:20px;
   background:gold;
-  border-radius:50%;
   padding:15px;
+  border-radius:50%;
 }
 </style>
 </head>
@@ -92,8 +106,8 @@ button {
   <h2>The Wedding Of</h2>
   <h1>Anang & Anik</h1>
   <p>Kepada Yth:</p>
-  <h3 id="namaTamu"></h3>
-  <button onclick="openInvite()">Buka Undangan</button>
+  <h3 id="nama"></h3>
+  <button class="btn" onclick="openInv()">Open Invitation</button>
 </div>
 
 <div id="content" style="display:none">
@@ -104,30 +118,28 @@ button {
   <h1>Anang & Anik</h1>
   <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486">
   <p>3 Oktober 2026</p>
-  <h3 id="countdown"></h3>
+  <h3 id="cd"></h3>
 </div>
 
 <!-- QUOTE -->
 <div class="section" style="background:#1f2f4f;color:white">
-  <p>"Dan di antara tanda-tanda-Nya..." (QS. Ar-Rum:21)</p>
+  <p>"Dan di antara tanda-tanda-Nya..." (QS Ar-Rum:21)</p>
 </div>
 
 <!-- MEMPELAI -->
 <div class="section">
-  <h2 class="gold">Mempelai</h2>
   <div class="card">
-    <h3>Anang</h3>
+    <h3 class="gold">Anang</h3>
     <p>Putra dari Bapak & Ibu</p>
   </div>
   <div class="card">
-    <h3>Anik</h3>
+    <h3 class="gold">Anik</h3>
     <p>Putri dari Bapak & Ibu</p>
   </div>
 </div>
 
 <!-- ACARA -->
 <div class="section" style="background:#eef3fb">
-  <h2 class="gold">Acara</h2>
   <div class="card">
     <h3>Akad</h3>
     <p>08.00 WIB</p>
@@ -140,97 +152,93 @@ button {
 
 <!-- MAP -->
 <div class="section">
-  <h2 class="gold">Lokasi</h2>
-  <iframe src="https://maps.google.com/maps?q=jakarta&t=&z=13&ie=UTF8&iwloc=&output=embed"
+  <iframe src="https://maps.google.com/maps?q=jakarta&output=embed"
   width="90%" height="250"></iframe>
 </div>
 
 <!-- LOVE STORY -->
-<div class="section" style="background:#eef3fb">
+<div class="section">
   <h2 class="gold">Love Story</h2>
-  <p>Awal bertemu...</p>
-  <p>Lamaran...</p>
-  <p>Menikah...</p>
+  <div class="timeline">
+    <div><b>2022</b> - Pertemuan pertama</div>
+    <div><b>2024</b> - Lamaran</div>
+    <div><b>2026</b> - Menikah</div>
+  </div>
 </div>
 
 <!-- GALERI -->
-<div class="section gallery">
+<div class="section">
   <h2 class="gold">Galeri</h2>
-  <img src="https://images.unsplash.com/photo-1502767089025-6572583495b0">
-  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330">
-  <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486">
+  <div class="gallery">
+    <img src="https://images.unsplash.com/photo-1502767089025-6572583495b0">
+    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330">
+  </div>
 </div>
 
 <!-- RSVP -->
 <div class="section">
-  <h2 class="gold">RSVP</h2>
   <a href="https://wa.me/6281234567890">
-    <button>Kirim Konfirmasi</button>
+    <button class="btn">Konfirmasi Kehadiran</button>
   </a>
 </div>
 
 <!-- GIFT -->
 <div class="section" style="background:#eef3fb">
   <h2 class="gold">Gift</h2>
-  <p>BCA: 123456789 a.n Anang</p>
+  <p>BCA 123456789 a.n Anang</p>
 </div>
 
 <!-- UCAPAN -->
 <div class="section">
   <h2 class="gold">Ucapan</h2>
-  <input placeholder="Tulis ucapan..." id="ucapan">
-  <button onclick="kirimUcapan()">Kirim</button>
-  <div id="listUcapan"></div>
+  <input id="ucp" placeholder="Tulis ucapan...">
+  <button onclick="kirim()">Kirim</button>
+  <div id="list"></div>
 </div>
 
 </div>
 
-<!-- MUSIC -->
-<audio id="music" src="music.mp3"></audio>
-<div class="music-btn" onclick="toggleMusic()">🎵</div>
+<!-- AUDIO -->
+<audio id="m" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
+<div class="music" onclick="toggle()">🎵</div>
 
 <script>
 // nama tamu
-const nama = new URLSearchParams(window.location.search).get('to') || 'Tamu';
-document.getElementById("namaTamu").innerText = nama;
+document.getElementById("nama").innerText =
+new URLSearchParams(window.location.search).get('to') || 'Tamu';
 
-// open
-function openInvite(){
-  document.getElementById("cover").style.display="none";
-  document.getElementById("content").style.display="block";
-  document.getElementById("music").play();
+// buka
+function openInv(){
+  cover.style.display="none";
+  content.style.display="block";
+  m.play();
 }
 
 // countdown
-const target = new Date("Oct 3, 2026").getTime();
+let t=new Date("Oct 3 2026").getTime();
 setInterval(()=>{
-  let now = new Date().getTime();
-  let d = target-now;
-  document.getElementById("countdown").innerHTML =
-  Math.floor(d/(1000*60*60*24))+" Hari Lagi";
+  let d=t-Date.now();
+  cd.innerHTML=Math.floor(d/(1000*60*60*24))+" Hari Lagi";
 },1000);
 
-// scroll anim
+// animasi scroll
 window.addEventListener("scroll",()=>{
   document.querySelectorAll(".section").forEach(el=>{
-    if(el.getBoundingClientRect().top < window.innerHeight-100){
+    if(el.getBoundingClientRect().top<window.innerHeight-100){
       el.classList.add("show");
     }
   });
 });
 
 // music
-function toggleMusic(){
-  let m = document.getElementById("music");
-  m.paused ? m.play() : m.pause();
-}
+function toggle(){ m.paused?m.play():m.pause(); }
 
 // ucapan
-function kirimUcapan(){
-  let val = document.getElementById("ucapan").value;
-  let div = document.createElement("p");
-  div.innerText = val;
-  document.getElementById("listUcapan").appendChild(div);
+function kirim(){
+  let v=ucp.value;
+  let p=document.createElement("p");
+  p.innerText=v;
+  list.appendChild(p);
 }
 </script>
 
