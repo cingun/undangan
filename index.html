@@ -11,88 +11,78 @@
 <style>
 body {
   margin:0;
-  font-family: 'Montserrat', sans-serif;
+  font-family:'Montserrat', sans-serif;
   background:#f5f7fb;
-  color:#333;
 }
+
+/* GLOBAL */
+.section {
+  padding:60px 20px;
+  text-align:center;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+.section.show {
+  opacity:1;
+  transform:translateY(0);
+}
+
+.gold { color:#c9a74d; font-family:'Playfair Display'; }
 
 /* COVER */
 .cover {
   height:100vh;
-  background:linear-gradient(rgba(0,0,50,0.4), rgba(0,0,50,0.6)),
+  background:linear-gradient(rgba(0,0,50,0.5), rgba(0,0,50,0.7)),
   url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486');
   background-size:cover;
-  background-position:center;
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
+  flex-direction:column;
   color:white;
-  text-align:center;
 }
 
-.cover h1 {
-  font-family:'Playfair Display';
-  font-size:40px;
-}
-
-.cover button {
-  margin-top:20px;
+button {
   padding:12px 25px;
   border:none;
-  background:gold;
   border-radius:30px;
+  background:gold;
   font-weight:bold;
-}
-
-/* SECTION */
-.section {
-  padding:60px 20px;
-  text-align:center;
-}
-
-.gold {
-  color:#c9a74d;
-  font-family:'Playfair Display';
 }
 
 /* HERO */
 .hero img {
   width:150px;
-  height:150px;
-  border-radius:50%;
-  object-fit:cover;
-  margin:20px 0;
-}
-
-/* COUPLE */
-.couple {
-  margin-top:30px;
-}
-
-.couple img {
-  width:120px;
-  height:120px;
   border-radius:50%;
 }
 
 /* CARD */
 .card {
   background:white;
-  padding:20px;
   margin:20px;
+  padding:20px;
   border-radius:20px;
   box-shadow:0 10px 20px rgba(0,0,0,0.1);
 }
 
-/* COUNTDOWN */
-#countdown {
-  font-size:24px;
-  font-weight:bold;
-  margin-top:10px;
+/* GALLERY */
+.gallery img {
+  width:30%;
+  border-radius:10px;
+  margin:5px;
+}
+
+/* MUSIC BUTTON */
+.music-btn {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:gold;
+  border-radius:50%;
+  padding:15px;
 }
 </style>
-
 </head>
 
 <body>
@@ -106,89 +96,142 @@ body {
   <button onclick="openInvite()">Buka Undangan</button>
 </div>
 
-<!-- CONTENT -->
 <div id="content" style="display:none">
 
-  <!-- HERO -->
-  <div class="section hero">
-    <h2 class="gold">The Wedding Of</h2>
-    <h1>Anang & Anik</h1>
-    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486">
-    <p>3 Oktober 2026</p>
-    <div id="countdown"></div>
+<!-- HERO -->
+<div class="section hero">
+  <h2 class="gold">The Wedding Of</h2>
+  <h1>Anang & Anik</h1>
+  <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486">
+  <p>3 Oktober 2026</p>
+  <h3 id="countdown"></h3>
+</div>
+
+<!-- QUOTE -->
+<div class="section" style="background:#1f2f4f;color:white">
+  <p>"Dan di antara tanda-tanda-Nya..." (QS. Ar-Rum:21)</p>
+</div>
+
+<!-- MEMPELAI -->
+<div class="section">
+  <h2 class="gold">Mempelai</h2>
+  <div class="card">
+    <h3>Anang</h3>
+    <p>Putra dari Bapak & Ibu</p>
   </div>
-
-  <!-- QUOTE -->
-  <div class="section" style="background:#1f2f4f;color:white">
-    <p>
-    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan pasangan..."
-    <br><br>(QS. Ar-Rum:21)
-    </p>
+  <div class="card">
+    <h3>Anik</h3>
+    <p>Putri dari Bapak & Ibu</p>
   </div>
+</div>
 
-  <!-- MEMPELAI -->
-  <div class="section">
-    <div class="couple">
-      <img src="https://images.unsplash.com/photo-1502767089025-6572583495b0">
-      <h3 class="gold">Anang</h3>
-      <p>Putra dari Bapak & Ibu</p>
-    </div>
-
-    <div class="couple">
-      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330">
-      <h3 class="gold">Anik</h3>
-      <p>Putri dari Bapak & Ibu</p>
-    </div>
+<!-- ACARA -->
+<div class="section" style="background:#eef3fb">
+  <h2 class="gold">Acara</h2>
+  <div class="card">
+    <h3>Akad</h3>
+    <p>08.00 WIB</p>
   </div>
-
-  <!-- SAVE THE DATE -->
-  <div class="section" style="background:#eef3fb">
-    <h2 class="gold">Save The Date</h2>
-
-    <div class="card">
-      <h3>Akad</h3>
-      <p>08.00 WIB</p>
-      <p>3 Oktober 2026</p>
-    </div>
-
-    <div class="card">
-      <h3>Resepsi</h3>
-      <p>11.00 WIB</p>
-      <p>3 Oktober 2026</p>
-    </div>
+  <div class="card">
+    <h3>Resepsi</h3>
+    <p>11.00 WIB</p>
   </div>
+</div>
+
+<!-- MAP -->
+<div class="section">
+  <h2 class="gold">Lokasi</h2>
+  <iframe src="https://maps.google.com/maps?q=jakarta&t=&z=13&ie=UTF8&iwloc=&output=embed"
+  width="90%" height="250"></iframe>
+</div>
+
+<!-- LOVE STORY -->
+<div class="section" style="background:#eef3fb">
+  <h2 class="gold">Love Story</h2>
+  <p>Awal bertemu...</p>
+  <p>Lamaran...</p>
+  <p>Menikah...</p>
+</div>
+
+<!-- GALERI -->
+<div class="section gallery">
+  <h2 class="gold">Galeri</h2>
+  <img src="https://images.unsplash.com/photo-1502767089025-6572583495b0">
+  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330">
+  <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486">
+</div>
+
+<!-- RSVP -->
+<div class="section">
+  <h2 class="gold">RSVP</h2>
+  <a href="https://wa.me/6281234567890">
+    <button>Kirim Konfirmasi</button>
+  </a>
+</div>
+
+<!-- GIFT -->
+<div class="section" style="background:#eef3fb">
+  <h2 class="gold">Gift</h2>
+  <p>BCA: 123456789 a.n Anang</p>
+</div>
+
+<!-- UCAPAN -->
+<div class="section">
+  <h2 class="gold">Ucapan</h2>
+  <input placeholder="Tulis ucapan..." id="ucapan">
+  <button onclick="kirimUcapan()">Kirim</button>
+  <div id="listUcapan"></div>
+</div>
 
 </div>
 
-<!-- AUDIO -->
+<!-- MUSIC -->
 <audio id="music" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
+<div class="music-btn" onclick="toggleMusic()">🎵</div>
 
 <script>
 // nama tamu
-const urlParams = new URLSearchParams(window.location.search);
-const nama = urlParams.get('to') || 'Tamu Undangan';
+const nama = new URLSearchParams(window.location.search).get('to') || 'Tamu';
 document.getElementById("namaTamu").innerText = nama;
 
-// buka undangan
+// open
 function openInvite(){
-  document.getElementById("cover").style.display = "none";
-  document.getElementById("content").style.display = "block";
+  document.getElementById("cover").style.display="none";
+  document.getElementById("content").style.display="block";
   document.getElementById("music").play();
 }
 
 // countdown
-const target = new Date("Oct 3, 2026 00:00:00").getTime();
-
-setInterval(() => {
-  const now = new Date().getTime();
-  const distance = target - now;
-
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-
+const target = new Date("Oct 3, 2026").getTime();
+setInterval(()=>{
+  let now = new Date().getTime();
+  let d = target-now;
   document.getElementById("countdown").innerHTML =
-  days + " Hari Lagi";
-}, 1000);
+  Math.floor(d/(1000*60*60*24))+" Hari Lagi";
+},1000);
 
+// scroll anim
+window.addEventListener("scroll",()=>{
+  document.querySelectorAll(".section").forEach(el=>{
+    if(el.getBoundingClientRect().top < window.innerHeight-100){
+      el.classList.add("show");
+    }
+  });
+});
+
+// music
+function toggleMusic(){
+  let m = document.getElementById("music");
+  m.paused ? m.play() : m.pause();
+}
+
+// ucapan
+function kirimUcapan(){
+  let val = document.getElementById("ucapan").value;
+  let div = document.createElement("p");
+  div.innerText = val;
+  document.getElementById("listUcapan").appendChild(div);
+}
 </script>
 
 </body>
