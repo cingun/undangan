@@ -13,6 +13,7 @@ body{
   margin:0;
   font-family:'Montserrat',sans-serif;
   background:#f4f6fb;
+  overflow-x:hidden;
 }
 
 /* COVER */
@@ -27,6 +28,12 @@ body{
   flex-direction:column;
   color:white;
   text-align:center;
+  transition:1s ease;
+}
+
+.cover.hide{
+  opacity:0;
+  transform:scale(1.1);
 }
 
 .cover h1{
@@ -43,26 +50,26 @@ body{
   font-weight:600;
 }
 
-/* ANIMASI */
+/* SECTION ANIMASI PREMIUM */
 .section{
   padding:70px 20px;
   text-align:center;
   opacity:0;
-  transform:translateY(50px);
-  transition:all 1s ease;
+  transform:translateY(60px) scale(0.95);
+  transition:all 1s cubic-bezier(0.22,1,0.36,1);
 }
 
 .section.show{
   opacity:1;
-  transform:translateY(0);
+  transform:translateY(0) scale(1);
 }
 
 /* VARIASI */
-.left{ transform:translateX(-60px); }
-.right{ transform:translateX(60px); }
+.left{ transform:translateX(-60px) scale(0.95); }
+.right{ transform:translateX(60px) scale(0.95); }
 
 .left.show, .right.show{
-  transform:translateX(0);
+  transform:translateX(0) scale(1);
 }
 
 /* STYLE */
@@ -226,19 +233,22 @@ input{
 </div>
 
 <!-- MUSIC -->
-<audio id="audio" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
+<audio id="audio" src="https://github.com/cingun/undangan/music.mp3"></audio>
 <div class="music" onclick="toggle()">🎵</div>
 
 <script>
 // nama tamu
-document.getElementById("guest").innerText =
-new URLSearchParams(location.search).get('to') || 'Tamu';
+guest.innerText = new URLSearchParams(location.search).get('to') || 'Tamu';
 
-// buka
+// buka animasi
 function openInv(){
-  cover.style.display="none";
-  main.style.display="block";
-  audio.play();
+  cover.classList.add("hide");
+  setTimeout(()=>{
+    cover.style.display="none";
+    main.style.display="block";
+    audio.play();
+    reveal();
+  },800);
 }
 
 // countdown
@@ -248,16 +258,21 @@ setInterval(()=>{
   count.innerHTML=Math.floor(d/(1000*60*60*24))+" Hari Lagi";
 },1000);
 
-// animasi scroll
+// animasi stagger
+const sections = document.querySelectorAll(".section");
+
 function reveal(){
-  document.querySelectorAll(".section").forEach(el=>{
-    if(el.getBoundingClientRect().top < window.innerHeight-100){
-      el.classList.add("show");
+  sections.forEach((el,i)=>{
+    const top = el.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100){
+      setTimeout(()=>{
+        el.classList.add("show");
+      }, i*120);
     }
   });
 }
+
 window.addEventListener("scroll", reveal);
-reveal();
 
 // music
 function toggle(){
@@ -266,9 +281,8 @@ function toggle(){
 
 // ucapan
 function send(){
-  let v=msg.value;
   let p=document.createElement("p");
-  p.innerText=v;
+  p.innerText=msg.value;
   list.appendChild(p);
 }
 </script>
