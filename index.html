@@ -6,19 +6,20 @@
 
 <title>Undangan Anang & Anik</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
   font-family:'Montserrat',sans-serif;
-  background:#f4f6fb;
+  background:#f4f6fb url('https://www.transparenttextures.com/patterns/white-wall.png');
   overflow-x:hidden;
 }
 
 /* COVER */
 .cover{
   height:100vh;
+  position:relative;
   background:linear-gradient(rgba(0,0,40,0.6),rgba(0,0,40,0.7)),
   url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486');
   background-size:cover;
@@ -37,10 +38,27 @@ body{
 }
 
 .cover h1{
-  font-family:'Playfair Display';
-  font-size:42px;
+  font-family:'Great Vibes',cursive;
+  font-size:52px;
 }
 
+/* FLOWER */
+.flower-top{
+  position:absolute;
+  top:0;
+  left:0;
+  width:140px;
+  opacity:0.8;
+}
+.flower-bottom{
+  position:absolute;
+  bottom:0;
+  right:0;
+  width:140px;
+  opacity:0.8;
+}
+
+/* BUTTON */
 .btn{
   margin-top:20px;
   background:linear-gradient(45deg,#d4af37,#f6e27a);
@@ -50,7 +68,7 @@ body{
   font-weight:600;
 }
 
-/* SECTION ANIMASI PREMIUM */
+/* SECTION ANIMASI */
 .section{
   padding:70px 20px;
   text-align:center;
@@ -58,22 +76,27 @@ body{
   transform:translateY(60px) scale(0.95);
   transition:all 1s cubic-bezier(0.22,1,0.36,1);
 }
-
 .section.show{
   opacity:1;
   transform:translateY(0) scale(1);
 }
 
-/* VARIASI */
 .left{ transform:translateX(-60px) scale(0.95); }
 .right{ transform:translateX(60px) scale(0.95); }
 
-.left.show, .right.show{
+.left.show,.right.show{
   transform:translateX(0) scale(1);
 }
 
 /* STYLE */
 .gold{color:#c9a74d;font-family:'Playfair Display';}
+
+.divider{
+  width:60px;
+  height:2px;
+  background:#c9a74d;
+  margin:15px auto;
+}
 
 .hero img{
   width:150px;
@@ -87,7 +110,8 @@ body{
   margin:20px auto;
   border-radius:20px;
   max-width:400px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  box-shadow:0 15px 35px rgba(0,0,0,0.08);
+  border:1px solid rgba(200,200,200,0.2);
 }
 
 .timeline{
@@ -134,6 +158,9 @@ input{
 
 <!-- COVER -->
 <div class="cover" id="cover">
+  <img class="flower-top" src="https://png.pngtree.com/png-clipart/20221026/original/pngtree-blue-floral-watercolor-png-image_8720822.png">
+  <img class="flower-bottom" src="https://png.pngtree.com/png-clipart/20221026/original/pngtree-blue-floral-watercolor-png-image_8720822.png">
+
   <h2>The Wedding Of</h2>
   <h1>Anang & Anik</h1>
   <p>Kepada Yth:</p>
@@ -144,8 +171,9 @@ input{
 <div id="main" style="display:none">
 
 <!-- HERO -->
-<div class="section">
+<div class="section hero">
   <h2 class="gold">The Wedding Of</h2>
+  <div class="divider"></div>
   <h1>Anang & Anik</h1>
   <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486">
   <p>3 Oktober 2026</p>
@@ -174,6 +202,8 @@ input{
 
 <!-- ACARA -->
 <div class="section">
+  <h2 class="gold">Acara</h2>
+  <div class="divider"></div>
   <div class="card">
     <h3>Akad</h3>
     <p>08.00 WIB</p>
@@ -186,6 +216,8 @@ input{
 
 <!-- MAP -->
 <div class="section">
+  <h2 class="gold">Lokasi</h2>
+  <div class="divider"></div>
   <iframe src="https://maps.google.com/maps?q=jakarta&output=embed"
   width="90%" height="250"></iframe>
 </div>
@@ -193,6 +225,7 @@ input{
 <!-- LOVE STORY -->
 <div class="section left">
   <h2 class="gold">Love Story</h2>
+  <div class="divider"></div>
   <div class="timeline">
     <div><b>2022</b> - Awal bertemu</div>
     <div><b>2024</b> - Lamaran</div>
@@ -203,6 +236,7 @@ input{
 <!-- GALERI -->
 <div class="section">
   <h2 class="gold">Galeri</h2>
+  <div class="divider"></div>
   <div class="gallery">
     <img src="https://images.unsplash.com/photo-1502767089025-6572583495b0">
     <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330">
@@ -219,6 +253,7 @@ input{
 <!-- GIFT -->
 <div class="section">
   <h2 class="gold">Gift</h2>
+  <div class="divider"></div>
   <p>BCA 123456789 a.n Anang</p>
 </div>
 
@@ -233,14 +268,14 @@ input{
 </div>
 
 <!-- MUSIC -->
-<audio id="audio" src="https://github.com/cingun/undangan/music.mp3"></audio>
+<audio id="audio" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
 <div class="music" onclick="toggle()">🎵</div>
 
 <script>
 // nama tamu
 guest.innerText = new URLSearchParams(location.search).get('to') || 'Tamu';
 
-// buka animasi
+// buka undangan
 function openInv(){
   cover.classList.add("hide");
   setTimeout(()=>{
@@ -259,20 +294,16 @@ setInterval(()=>{
 },1000);
 
 // animasi stagger
-const sections = document.querySelectorAll(".section");
-
+const sections=document.querySelectorAll(".section");
 function reveal(){
   sections.forEach((el,i)=>{
-    const top = el.getBoundingClientRect().top;
-    if(top < window.innerHeight - 100){
-      setTimeout(()=>{
-        el.classList.add("show");
-      }, i*120);
+    const top=el.getBoundingClientRect().top;
+    if(top<window.innerHeight-100){
+      setTimeout(()=>{ el.classList.add("show"); }, i*120);
     }
   });
 }
-
-window.addEventListener("scroll", reveal);
+window.addEventListener("scroll",reveal);
 
 // music
 function toggle(){
