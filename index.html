@@ -6,137 +6,119 @@
 
 <title>Undangan Anang & Anik</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Montserrat&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
   font-family:'Montserrat',sans-serif;
-  background:#0f172a;
-  color:white;
-  overflow-x:hidden;
+  background:#f4f6fb;
 }
 
-/* COVER TANPA BLUR */
+/* COVER */
 .cover{
   height:100vh;
-  position:relative;
-  background:url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486') center/cover;
+  background:linear-gradient(rgba(0,0,40,0.6),rgba(0,0,40,0.7)),
+  url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486');
+  background-size:cover;
   display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  transition:all 1.5s cubic-bezier(0.22,1,0.36,1);
-}
-
-.overlay{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,30,0.6);
-  transition:1s;
-}
-
-.cover.hide{
-  transform:scale(1.15);
-  opacity:0;
+  color:white;
+  text-align:center;
 }
 
 .cover h1{
-  font-family:'Great Vibes';
-  font-size:56px;
-  text-shadow:0 0 20px gold;
+  font-family:'Playfair Display';
+  font-size:42px;
 }
 
-/* FLOWER */
-.flower{
-  position:absolute;
-  width:160px;
-}
-.top{top:0;left:0;}
-.bottom{bottom:0;right:0;}
-
-/* BUTTON */
 .btn{
   margin-top:20px;
-  padding:12px 30px;
+  background:linear-gradient(45deg,#d4af37,#f6e27a);
+  padding:12px 28px;
   border-radius:30px;
   border:none;
-  background:linear-gradient(45deg,#d4af37,#f6e27a);
-  font-weight:bold;
+  font-weight:600;
 }
 
-/* SPARKLE */
-.sparkle{
-  position:absolute;
-  width:4px;
-  height:4px;
-  background:white;
-  border-radius:50%;
-  animation:blink 2s infinite;
-}
-@keyframes blink{
-  0%,100%{opacity:0;}
-  50%{opacity:1;}
-}
-
-/* SECTION */
+/* ANIMASI */
 .section{
-  padding:80px 20px;
+  padding:70px 20px;
   text-align:center;
   opacity:0;
-  transform:translateY(80px) scale(0.95);
-  transition:1s cubic-bezier(0.22,1,0.36,1);
+  transform:translateY(50px);
+  transition:all 1s ease;
 }
+
 .section.show{
   opacity:1;
-  transform:translateY(0) scale(1);
+  transform:translateY(0);
 }
 
-.gold{
-  color:#f6e27a;
-  font-family:'Playfair Display';
+/* VARIASI */
+.left{ transform:translateX(-60px); }
+.right{ transform:translateX(60px); }
+
+.left.show, .right.show{
+  transform:translateX(0);
 }
 
-/* GALLERY */
+/* STYLE */
+.gold{color:#c9a74d;font-family:'Playfair Display';}
+
+.hero img{
+  width:150px;
+  border-radius:50%;
+  margin:20px 0;
+}
+
+.card{
+  background:white;
+  padding:25px;
+  margin:20px auto;
+  border-radius:20px;
+  max-width:400px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+.timeline{
+  max-width:500px;
+  margin:auto;
+  text-align:left;
+}
+.timeline div{
+  border-left:2px solid #c9a74d;
+  padding-left:15px;
+  margin:20px 0;
+}
+
 .gallery{
   display:flex;
   overflow-x:auto;
 }
 .gallery img{
   width:70%;
+  border-radius:15px;
   margin:10px;
-  border-radius:20px;
-  cursor:pointer;
 }
 
-/* VIEWER */
-.viewer{
-  position:fixed;
-  top:0;left:0;
-  width:100%;
-  height:100%;
-  background:black;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
-.viewer img{
-  width:90%;
-  max-width:600px;
-  border-radius:20px;
-}
-
-/* MUSIC */
 .music{
   position:fixed;
   bottom:20px;
   right:20px;
-  background:gold;
+  background:#d4af37;
   padding:15px;
   border-radius:50%;
   cursor:pointer;
+}
+
+input{
+  padding:10px;
+  width:70%;
+  border-radius:10px;
+  border:1px solid #ccc;
 }
 </style>
 </head>
@@ -145,152 +127,149 @@ body{
 
 <!-- COVER -->
 <div class="cover" id="cover">
-  <div class="overlay"></div>
-
-  <img class="flower top" src="https://png.pngtree.com/png-clipart/20221026/original/pngtree-blue-floral-watercolor-png-image_8720822.png">
-  <img class="flower bottom" src="https://png.pngtree.com/png-clipart/20221026/original/pngtree-blue-floral-watercolor-png-image_8720822.png">
-
+  <h2>The Wedding Of</h2>
   <h1>Anang & Anik</h1>
-  <p id="guest"></p>
+  <p>Kepada Yth:</p>
+  <h3 id="guest"></h3>
   <button class="btn" onclick="openInv()">Open Invitation</button>
 </div>
 
 <div id="main" style="display:none">
 
+<!-- HERO -->
 <div class="section">
-  <h2 class="gold">The Wedding</h2>
+  <h2 class="gold">The Wedding Of</h2>
+  <h1>Anang & Anik</h1>
+  <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486">
   <p>3 Oktober 2026</p>
+  <h3 id="count"></h3>
 </div>
 
+<!-- QUOTE -->
 <div class="section">
-  <h2 class="gold">Galeri</h2>
-  <div class="gallery">
-    <img src="https://images.unsplash.com/photo-1502767089025-6572583495b0" onclick="openViewer(0)">
-    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" onclick="openViewer(1)">
+  <p>"Dan di antara tanda-tanda-Nya..."<br>(QS Ar-Rum:21)</p>
+</div>
+
+<!-- MEMPELAI -->
+<div class="section left">
+  <div class="card">
+    <h3 class="gold">Anang</h3>
+    <p>Putra dari Bapak & Ibu</p>
   </div>
 </div>
 
+<div class="section right">
+  <div class="card">
+    <h3 class="gold">Anik</h3>
+    <p>Putri dari Bapak & Ibu</p>
+  </div>
 </div>
 
-<!-- VIEWER -->
-<div class="viewer" id="viewer">
-  <img id="viewerImg">
+<!-- ACARA -->
+<div class="section">
+  <div class="card">
+    <h3>Akad</h3>
+    <p>08.00 WIB</p>
+  </div>
+  <div class="card">
+    <h3>Resepsi</h3>
+    <p>11.00 WIB</p>
+  </div>
 </div>
 
-<!-- AUDIO (PAKAI PUNYA KAMU) -->
-<audio id="audio" loop>
-  <source src="https://github.com/cingun/undangan/main/music.mp3" type="audio/mpeg">
-</audio>
+<!-- MAP -->
+<div class="section">
+  <iframe src="https://maps.google.com/maps?q=jakarta&output=embed"
+  width="90%" height="250"></iframe>
+</div>
 
-<div class="music" onclick="toggle()" id="musicBtn">🔊</div>
+<!-- LOVE STORY -->
+<div class="section left">
+  <h2 class="gold">Love Story</h2>
+  <div class="timeline">
+    <div><b>2022</b> - Awal bertemu</div>
+    <div><b>2024</b> - Lamaran</div>
+    <div><b>2026</b> - Menikah</div>
+  </div>
+</div>
+
+<!-- GALERI -->
+<div class="section">
+  <h2 class="gold">Galeri</h2>
+  <div class="gallery">
+    <img src="https://images.unsplash.com/photo-1502767089025-6572583495b0">
+    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330">
+  </div>
+</div>
+
+<!-- RSVP -->
+<div class="section">
+  <a href="https://wa.me/6281234567890">
+    <button class="btn">Konfirmasi Kehadiran</button>
+  </a>
+</div>
+
+<!-- GIFT -->
+<div class="section">
+  <h2 class="gold">Gift</h2>
+  <p>BCA 123456789 a.n Anang</p>
+</div>
+
+<!-- UCAPAN -->
+<div class="section">
+  <h2 class="gold">Ucapan</h2>
+  <input id="msg" placeholder="Tulis ucapan...">
+  <button onclick="send()">Kirim</button>
+  <div id="list"></div>
+</div>
+
+</div>
+
+<!-- MUSIC -->
+<audio id="audio" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
+<div class="music" onclick="toggle()">🎵</div>
 
 <script>
-const images=[
-"https://images.unsplash.com/photo-1502767089025-6572583495b0",
-"https://images.unsplash.com/photo-1494790108377-be9c29b29330"
-];
-
-let current=0;
-
 // nama tamu
-guest.innerText=new URLSearchParams(location.search).get('to')||'Tamu';
+document.getElementById("guest").innerText =
+new URLSearchParams(location.search).get('to') || 'Tamu';
 
-// OPEN (FINAL FIX AUDIO)
+// buka
 function openInv(){
-  cover.classList.add("hide");
-
-  // audio langsung dari klik
-  audio.currentTime = 0;
-  audio.play().then(()=>{
-    musicBtn.innerText="🔊";
-  }).catch(()=>{});
-
-  setTimeout(()=>{
-    cover.style.display="none";
-    main.style.display="block";
-  },1400);
-
-  setTimeout(()=>{
-    reveal();
-    sparkle();
-    autoSlide();
-  },1500);
+  cover.style.display="none";
+  main.style.display="block";
+  audio.play();
 }
 
-// reveal
+// countdown
+let target=new Date("Oct 3 2026").getTime();
+setInterval(()=>{
+  let d=target-Date.now();
+  count.innerHTML=Math.floor(d/(1000*60*60*24))+" Hari Lagi";
+},1000);
+
+// animasi scroll
 function reveal(){
-  document.querySelectorAll(".section").forEach((el,i)=>{
-    if(el.getBoundingClientRect().top<window.innerHeight-100){
-      setTimeout(()=>el.classList.add("show"),i*150);
+  document.querySelectorAll(".section").forEach(el=>{
+    if(el.getBoundingClientRect().top < window.innerHeight-100){
+      el.classList.add("show");
     }
   });
 }
-window.addEventListener("scroll",reveal);
+window.addEventListener("scroll", reveal);
+reveal();
 
-// parallax bunga
-document.addEventListener("mousemove",e=>{
-  document.querySelectorAll(".flower").forEach(el=>{
-    let x=(window.innerWidth/2-e.pageX)*0.04;
-    let y=(window.innerHeight/2-e.pageY)*0.04;
-    el.style.transform=`translate(${x}px,${y}px)`;
-  });
-});
-
-// viewer
-function openViewer(i){
-  current=i;
-  viewer.style.display="flex";
-  viewerImg.src=images[current];
-}
-
-viewer.onclick=()=>viewer.style.display="none";
-
-// swipe
-let startX=0;
-viewer.addEventListener("touchstart",e=>{
-  startX=e.touches[0].clientX;
-});
-viewer.addEventListener("touchend",e=>{
-  let endX=e.changedTouches[0].clientX;
-  if(startX-endX>50) next();
-  else if(endX-startX>50) prev();
-});
-
-function next(){
-  current=(current+1)%images.length;
-  viewerImg.src=images[current];
-}
-function prev(){
-  current=(current-1+images.length)%images.length;
-  viewerImg.src=images[current];
-}
-
-// sparkle
-function sparkle(){
-  for(let i=0;i<40;i++){
-    let s=document.createElement("div");
-    s.className="sparkle";
-    s.style.top=Math.random()*100+"%";
-    s.style.left=Math.random()*100+"%";
-    s.style.animationDelay=Math.random()*2+"s";
-    document.body.appendChild(s);
-  }
-}
-
-// auto slide
-function autoSlide(){
-  setInterval(()=>next(),4000);
-}
-
-// toggle audio
+// music
 function toggle(){
-  if(audio.paused){
-    audio.play();
-    musicBtn.innerText="🔊";
-  } else {
-    audio.pause();
-    musicBtn.innerText="🔇";
-  }
+  audio.paused?audio.play():audio.pause();
+}
+
+// ucapan
+function send(){
+  let v=msg.value;
+  let p=document.createElement("p");
+  p.innerText=v;
+  list.appendChild(p);
 }
 </script>
 
