@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Undangan Anang & Anik</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
@@ -12,7 +13,6 @@ body{
   margin:0;
   font-family:'Montserrat',sans-serif;
   background:#f4f6fb;
-  overflow-x:hidden;
 }
 
 /* COVER */
@@ -43,29 +43,37 @@ body{
   font-weight:600;
 }
 
-/* SECTION */
+/* ANIMASI */
 .section{
   padding:70px 20px;
   text-align:center;
   opacity:0;
   transform:translateY(50px);
-  transition:1s;
+  transition:all 1s ease;
 }
+
 .section.show{
   opacity:1;
   transform:translateY(0);
 }
 
+/* VARIASI */
+.left{ transform:translateX(-60px); }
+.right{ transform:translateX(60px); }
+
+.left.show, .right.show{
+  transform:translateX(0);
+}
+
+/* STYLE */
 .gold{color:#c9a74d;font-family:'Playfair Display';}
 
-/* HERO */
 .hero img{
   width:150px;
   border-radius:50%;
   margin:20px 0;
 }
 
-/* CARD */
 .card{
   background:white;
   padding:25px;
@@ -75,7 +83,6 @@ body{
   box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
-/* TIMELINE */
 .timeline{
   max-width:500px;
   margin:auto;
@@ -87,7 +94,6 @@ body{
   margin:20px 0;
 }
 
-/* GALLERY */
 .gallery{
   display:flex;
   overflow-x:auto;
@@ -98,7 +104,6 @@ body{
   margin:10px;
 }
 
-/* MUSIC */
 .music{
   position:fixed;
   bottom:20px;
@@ -109,7 +114,6 @@ body{
   cursor:pointer;
 }
 
-/* INPUT */
 input{
   padding:10px;
   width:70%;
@@ -133,7 +137,7 @@ input{
 <div id="main" style="display:none">
 
 <!-- HERO -->
-<div class="section hero">
+<div class="section">
   <h2 class="gold">The Wedding Of</h2>
   <h1>Anang & Anik</h1>
   <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486">
@@ -142,16 +146,19 @@ input{
 </div>
 
 <!-- QUOTE -->
-<div class="section" style="background:#1f2f4f;color:white">
+<div class="section">
   <p>"Dan di antara tanda-tanda-Nya..."<br>(QS Ar-Rum:21)</p>
 </div>
 
 <!-- MEMPELAI -->
-<div class="section">
+<div class="section left">
   <div class="card">
     <h3 class="gold">Anang</h3>
     <p>Putra dari Bapak & Ibu</p>
   </div>
+</div>
+
+<div class="section right">
   <div class="card">
     <h3 class="gold">Anik</h3>
     <p>Putri dari Bapak & Ibu</p>
@@ -159,7 +166,7 @@ input{
 </div>
 
 <!-- ACARA -->
-<div class="section" style="background:#eef3fb">
+<div class="section">
   <div class="card">
     <h3>Akad</h3>
     <p>08.00 WIB</p>
@@ -177,7 +184,7 @@ input{
 </div>
 
 <!-- LOVE STORY -->
-<div class="section">
+<div class="section left">
   <h2 class="gold">Love Story</h2>
   <div class="timeline">
     <div><b>2022</b> - Awal bertemu</div>
@@ -203,7 +210,7 @@ input{
 </div>
 
 <!-- GIFT -->
-<div class="section" style="background:#eef3fb">
+<div class="section">
   <h2 class="gold">Gift</h2>
   <p>BCA 123456789 a.n Anang</p>
 </div>
@@ -242,13 +249,15 @@ setInterval(()=>{
 },1000);
 
 // animasi scroll
-window.addEventListener("scroll",()=>{
+function reveal(){
   document.querySelectorAll(".section").forEach(el=>{
     if(el.getBoundingClientRect().top < window.innerHeight-100){
       el.classList.add("show");
     }
   });
-});
+}
+window.addEventListener("scroll", reveal);
+reveal();
 
 // music
 function toggle(){
