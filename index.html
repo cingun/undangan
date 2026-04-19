@@ -12,7 +12,8 @@
 body{
   margin:0;
   font-family:'Montserrat',sans-serif;
-  background:#f4f6fb url('https://www.transparenttextures.com/patterns/white-wall.png');
+  background:#0f172a;
+  color:white;
   overflow-x:hidden;
 }
 
@@ -20,136 +21,134 @@ body{
 .cover{
   height:100vh;
   position:relative;
-  background:linear-gradient(rgba(0,0,40,0.6),rgba(0,0,40,0.7)),
-  url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486');
-  background-size:cover;
+  background:url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486') center/cover;
   display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  color:white;
-  text-align:center;
-  transition:1s ease;
+  overflow:hidden;
+}
+
+.overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  backdrop-filter:blur(12px);
+  background:rgba(0,0,30,0.6);
+  transition:1.2s;
+}
+
+.cover.hide .overlay{
+  backdrop-filter:blur(0);
+  opacity:0;
 }
 
 .cover.hide{
+  transform:scale(1.25);
   opacity:0;
-  transform:scale(1.1);
+  transition:1.5s cubic-bezier(0.22,1,0.36,1);
 }
 
 .cover h1{
-  font-family:'Great Vibes',cursive;
-  font-size:52px;
+  font-family:'Great Vibes';
+  font-size:60px;
+  z-index:2;
+  text-shadow:0 0 20px gold;
 }
 
 /* FLOWER */
-.flower-top{
+.flower{
   position:absolute;
-  top:0;
-  left:0;
-  width:140px;
+  width:180px;
   opacity:0.8;
 }
-.flower-bottom{
-  position:absolute;
-  bottom:0;
-  right:0;
-  width:140px;
-  opacity:0.8;
-}
+.top{top:0;left:0;}
+.bottom{bottom:0;right:0;}
 
 /* BUTTON */
 .btn{
   margin-top:20px;
   background:linear-gradient(45deg,#d4af37,#f6e27a);
-  padding:12px 28px;
+  padding:12px 30px;
   border-radius:30px;
   border:none;
-  font-weight:600;
+  font-weight:bold;
 }
 
-/* SECTION ANIMASI */
+/* SPARKLE */
+.sparkle{
+  position:absolute;
+  width:4px;
+  height:4px;
+  background:white;
+  border-radius:50%;
+  animation:blink 2s infinite;
+}
+@keyframes blink{
+  0%,100%{opacity:0;}
+  50%{opacity:1;}
+}
+
+/* SECTION */
 .section{
-  padding:70px 20px;
+  padding:80px 20px;
   text-align:center;
   opacity:0;
-  transform:translateY(60px) scale(0.95);
-  transition:all 1s cubic-bezier(0.22,1,0.36,1);
+  transform:translateY(80px) scale(0.95);
+  transition:1s cubic-bezier(0.22,1,0.36,1);
 }
 .section.show{
   opacity:1;
   transform:translateY(0) scale(1);
 }
 
-.left{ transform:translateX(-60px) scale(0.95); }
-.right{ transform:translateX(60px) scale(0.95); }
-
-.left.show,.right.show{
-  transform:translateX(0) scale(1);
+.gold{
+  color:#f6e27a;
+  font-family:'Playfair Display';
+  text-shadow:0 0 10px rgba(255,215,0,0.6);
 }
 
-/* STYLE */
-.gold{color:#c9a74d;font-family:'Playfair Display';}
-
-.divider{
-  width:60px;
-  height:2px;
-  background:#c9a74d;
-  margin:15px auto;
-}
-
-.hero img{
-  width:150px;
-  border-radius:50%;
-  margin:20px 0;
-}
-
-.card{
-  background:white;
-  padding:25px;
-  margin:20px auto;
-  border-radius:20px;
-  max-width:400px;
-  box-shadow:0 15px 35px rgba(0,0,0,0.08);
-  border:1px solid rgba(200,200,200,0.2);
-}
-
-.timeline{
-  max-width:500px;
-  margin:auto;
-  text-align:left;
-}
-.timeline div{
-  border-left:2px solid #c9a74d;
-  padding-left:15px;
-  margin:20px 0;
-}
-
+/* GALLERY */
 .gallery{
   display:flex;
   overflow-x:auto;
 }
 .gallery img{
   width:70%;
-  border-radius:15px;
   margin:10px;
+  border-radius:20px;
+  cursor:pointer;
 }
 
+/* VIEWER */
+.viewer{
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  height:100%;
+  background:black;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.viewer img{
+  width:90%;
+  max-width:600px;
+  border-radius:20px;
+  transition:0.4s;
+}
+
+/* MUSIC */
 .music{
   position:fixed;
   bottom:20px;
   right:20px;
-  background:#d4af37;
+  background:gold;
   padding:15px;
   border-radius:50%;
   cursor:pointer;
-}
-
-input{
-  padding:10px;
-  width:70%;
-  border-radius:10px;
-  border:1px solid #ccc;
 }
 </style>
 </head>
@@ -158,124 +157,53 @@ input{
 
 <!-- COVER -->
 <div class="cover" id="cover">
-  <img class="flower-top" src="https://png.pngtree.com/png-clipart/20221026/original/pngtree-blue-floral-watercolor-png-image_8720822.png">
-  <img class="flower-bottom" src="https://png.pngtree.com/png-clipart/20221026/original/pngtree-blue-floral-watercolor-png-image_8720822.png">
+  <div class="overlay"></div>
 
-  <h2>The Wedding Of</h2>
+  <img class="flower top" src="https://png.pngtree.com/png-clipart/20221026/original/pngtree-blue-floral-watercolor-png-image_8720822.png">
+  <img class="flower bottom" src="https://png.pngtree.com/png-clipart/20221026/original/pngtree-blue-floral-watercolor-png-image_8720822.png">
+
   <h1>Anang & Anik</h1>
-  <p>Kepada Yth:</p>
-  <h3 id="guest"></h3>
+  <p id="guest"></p>
   <button class="btn" onclick="openInv()">Open Invitation</button>
 </div>
 
 <div id="main" style="display:none">
 
-<!-- HERO -->
-<div class="section hero">
-  <h2 class="gold">The Wedding Of</h2>
-  <div class="divider"></div>
-  <h1>Anang & Anik</h1>
-  <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486">
+<div class="section">
+  <h2 class="gold">The Wedding</h2>
   <p>3 Oktober 2026</p>
-  <h3 id="count"></h3>
 </div>
 
-<!-- QUOTE -->
-<div class="section">
-  <p>"Dan di antara tanda-tanda-Nya..."<br>(QS Ar-Rum:21)</p>
-</div>
-
-<!-- MEMPELAI -->
-<div class="section left">
-  <div class="card">
-    <h3 class="gold">Anang</h3>
-    <p>Putra dari Bapak & Ibu</p>
-  </div>
-</div>
-
-<div class="section right">
-  <div class="card">
-    <h3 class="gold">Anik</h3>
-    <p>Putri dari Bapak & Ibu</p>
-  </div>
-</div>
-
-<!-- ACARA -->
-<div class="section">
-  <h2 class="gold">Acara</h2>
-  <div class="divider"></div>
-  <div class="card">
-    <h3>Akad</h3>
-    <p>08.00 WIB</p>
-  </div>
-  <div class="card">
-    <h3>Resepsi</h3>
-    <p>11.00 WIB</p>
-  </div>
-</div>
-
-<!-- MAP -->
-<div class="section">
-  <h2 class="gold">Lokasi</h2>
-  <div class="divider"></div>
-  <iframe src="https://maps.google.com/maps?q=jakarta&output=embed"
-  width="90%" height="250"></iframe>
-</div>
-
-<!-- LOVE STORY -->
-<div class="section left">
-  <h2 class="gold">Love Story</h2>
-  <div class="divider"></div>
-  <div class="timeline">
-    <div><b>2022</b> - Awal bertemu</div>
-    <div><b>2024</b> - Lamaran</div>
-    <div><b>2026</b> - Menikah</div>
-  </div>
-</div>
-
-<!-- GALERI -->
 <div class="section">
   <h2 class="gold">Galeri</h2>
-  <div class="divider"></div>
   <div class="gallery">
-    <img src="https://images.unsplash.com/photo-1502767089025-6572583495b0">
-    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330">
+    <img src="https://images.unsplash.com/photo-1502767089025-6572583495b0" onclick="openViewer(0)">
+    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" onclick="openViewer(1)">
   </div>
 </div>
 
-<!-- RSVP -->
-<div class="section">
-  <a href="https://wa.me/6281234567890">
-    <button class="btn">Konfirmasi Kehadiran</button>
-  </a>
 </div>
 
-<!-- GIFT -->
-<div class="section">
-  <h2 class="gold">Gift</h2>
-  <div class="divider"></div>
-  <p>BCA 123456789 a.n Anang</p>
+<!-- VIEWER -->
+<div class="viewer" id="viewer">
+  <img id="viewerImg">
 </div>
 
-<!-- UCAPAN -->
-<div class="section">
-  <h2 class="gold">Ucapan</h2>
-  <input id="msg" placeholder="Tulis ucapan...">
-  <button onclick="send()">Kirim</button>
-  <div id="list"></div>
-</div>
-
-</div>
-
-<!-- MUSIC -->
-<audio id="audio" src="music.mp3"></audio>
+<audio id="audio" src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
 <div class="music" onclick="toggle()">🎵</div>
 
 <script>
-// nama tamu
-guest.innerText = new URLSearchParams(location.search).get('to') || 'Tamu';
+const images=[
+"https://images.unsplash.com/photo-1502767089025-6572583495b0",
+"https://images.unsplash.com/photo-1494790108377-be9c29b29330"
+];
 
-// buka undangan
+let current=0;
+
+// guest
+guest.innerText=new URLSearchParams(location.search).get('to')||'Tamu';
+
+// open cinematic
 function openInv(){
   cover.classList.add("hide");
   setTimeout(()=>{
@@ -283,38 +211,82 @@ function openInv(){
     main.style.display="block";
     audio.play();
     reveal();
-  },800);
+    sparkle();
+    autoSlide();
+  },1200);
 }
 
-// countdown
-let target=new Date("Oct 3 2026").getTime();
-setInterval(()=>{
-  let d=target-Date.now();
-  count.innerHTML=Math.floor(d/(1000*60*60*24))+" Hari Lagi";
-},1000);
-
-// animasi stagger
-const sections=document.querySelectorAll(".section");
+// reveal
 function reveal(){
-  sections.forEach((el,i)=>{
-    const top=el.getBoundingClientRect().top;
-    if(top<window.innerHeight-100){
-      setTimeout(()=>{ el.classList.add("show"); }, i*120);
+  document.querySelectorAll(".section").forEach((el,i)=>{
+    if(el.getBoundingClientRect().top<window.innerHeight-100){
+      setTimeout(()=>el.classList.add("show"),i*150);
     }
   });
 }
 window.addEventListener("scroll",reveal);
 
+// PARALLAX
+document.addEventListener("mousemove",e=>{
+  document.querySelectorAll(".flower").forEach(el=>{
+    let speed=0.04;
+    let x=(window.innerWidth/2-e.pageX)*speed;
+    let y=(window.innerHeight/2-e.pageY)*speed;
+    el.style.transform=`translate(${x}px,${y}px)`;
+  });
+});
+
+// VIEWER
+function openViewer(i){
+  current=i;
+  viewer.style.display="flex";
+  viewerImg.src=images[current];
+}
+
+// swipe
+let startX=0;
+viewer.addEventListener("touchstart",e=>{
+  startX=e.touches[0].clientX;
+});
+viewer.addEventListener("touchend",e=>{
+  let endX=e.changedTouches[0].clientX;
+  if(startX-endX>50) next();
+  else if(endX-startX>50) prev();
+});
+
+function next(){
+  current=(current+1)%images.length;
+  viewerImg.src=images[current];
+}
+function prev(){
+  current=(current-1+images.length)%images.length;
+  viewerImg.src=images[current];
+}
+
+viewer.onclick=()=>viewer.style.display="none";
+
+// sparkle
+function sparkle(){
+  for(let i=0;i<40;i++){
+    let s=document.createElement("div");
+    s.className="sparkle";
+    s.style.top=Math.random()*100+"%";
+    s.style.left=Math.random()*100+"%";
+    s.style.animationDelay=Math.random()*2+"s";
+    document.body.appendChild(s);
+  }
+}
+
+// auto slide
+function autoSlide(){
+  setInterval(()=>{
+    next();
+  },4000);
+}
+
 // music
 function toggle(){
   audio.paused?audio.play():audio.pause();
-}
-
-// ucapan
-function send(){
-  let p=document.createElement("p");
-  p.innerText=msg.value;
-  list.appendChild(p);
 }
 </script>
 
