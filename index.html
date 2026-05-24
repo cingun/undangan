@@ -64,9 +64,9 @@
 
         /* 4. Galeri Berjalan Tanpa Berhenti */
         @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-70%); } /* Diubah dari -50% menjadi -70% agar kontainer yang panjang bisa lewat semua */
+}
         .animate-marquee { display: flex; width: max-content; animation: marquee 30s linear infinite !important; }
     </style>
 </head>
