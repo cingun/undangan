@@ -279,7 +279,7 @@
         function scanElements() { document.querySelectorAll('.fade-element').forEach(el => observer.observe(el)); }
 
         // RSVP URL (Ganti dengan Link Anda)
-        const SCRIPT_URL = 'GANTI_DENGAN_URL_WEB_APP_APPS_SCRIPT_ANDA'; 
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzmHJ9PqYryEiEWqVeJNniRG-cJrhdN7BeIoQBqUIOE3Pbyb4Gc803nACQLPkA72Ww_wA/exec'; 
 
         function loadGreetings() {
             fetch(SCRIPT_URL + "?_="+new Date().getTime()).then(r => r.json()).then(data => {
